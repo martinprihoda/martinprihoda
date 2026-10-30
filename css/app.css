@@ -1,0 +1,186 @@
+html, body, div, span, h1, h2, p, a, strong, footer, header, main, section {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+footer, header, main, section {
+	display: block;
+}
+
+body {
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	text-align: center;
+	line-height: 1.6em;
+	padding: 7em 10% 2em;
+	background-color: #27293d;
+	color: #fff;
+}
+
+strong {
+	font-weight: bold;
+}
+
+header {
+	font-size: 220%;
+	text-transform: lowercase;
+	word-spacing: -0.6ex;
+	letter-spacing: 1px;
+	white-space: nowrap;
+	padding-bottom: 2em;
+	color: #46bba0;
+}
+
+header .firstname {
+	display: none;
+}
+
+header strong {
+	color: #fff;
+}
+
+header::after {
+	content: "();";
+}
+
+main h1 {
+	font-size: 125%;
+	line-height: 1.4em;
+}
+
+main p {
+	margin: 2em 0;
+	color: #b6b9ce;
+	font-style: italic;
+}
+
+main .unavailable {
+	display: inline-block;
+	text-decoration: line-through;
+	position: relative;
+	cursor: help;
+}
+
+main .unavailable .tooltip {
+	display: block;
+	visibility: hidden;
+	position: absolute;
+	width: 170px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 70%;
+	top: 140%;
+	left: -52px;
+	text-align: center;
+	background-color: #46bba0;
+	border-radius: 6px;
+	z-index: 1;
+}
+
+main .unavailable .tooltip:after {
+	position: absolute;
+	left: 75px;
+	top: -20px;
+	content: " ";
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 10px;
+	border-color: transparent transparent #46bba0 transparent;
+}
+
+footer .icon {
+	position: relative;
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	border-radius: 50px;
+	border: 1px dashed #b6b9ce;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 110%;
+	margin: 1em 1px;
+	color: #b6b9ce;
+	cursor: pointer;
+	text-align: center;
+}
+
+footer .icon:last-child {
+	margin-right: 0;
+}
+
+footer .icon-fb::before {
+	content: 'fb';
+}
+
+footer .icon-in::before {
+	content: 'in';
+}
+
+footer .icon-gh::before {
+	content: 'gh';
+}
+
+footer .icon .tooltip {
+	top: 110%;
+	left: -5px;
+	display: block;
+	width: 60px;
+	height: 35px;
+	line-height: 35px;
+	visibility: hidden;
+	color: #46bba0;
+	text-align: center;
+	border-bottom: 1px dashed #46bba0;
+	position: absolute;
+	z-index: 1;
+	font-weight: normal;
+	font-size: 75%;
+}
+
+footer .icon:hover .tooltip, 
+main .unavailable:hover .tooltip {
+	visibility: visible;
+}
+
+footer .icon:hover {
+	background-color: #46bba0;
+	border: 1px solid #46bba0;
+	color: #fff;
+}
+
+@media only screen and (min-width: 340px) {
+	header .firstname {
+		display: inline;
+	}
+
+	footer .icon {
+		margin-right: 1em;
+	}
+}
+
+@media only screen and (min-width: 400px) {
+	header {
+		font-size: 250%;
+	}
+}
+
+@media only screen and (min-width: 600px) {
+
+	header {
+		font-size: 350%;
+	}
+}
+
+@media only screen and (min-width: 750px) {
+	header,
+	main,
+	footer {
+		max-width: 600px;
+		margin: 0 auto;
+	}
+}
