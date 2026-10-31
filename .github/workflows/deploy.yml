@@ -11,23 +11,16 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    # Runs on the VPS itself: its firewall only allows SSH from CZ/SK, so GitHub-hosted runners can't push there.
+    runs-on: [self-hosted, martinprihoda]
     environment:
       name: production
       url: https://martinprihoda.cz
     steps:
       - uses: actions/checkout@v5
 
-      - name: Set up SSH
-        run: |
-          install -m 700 -d ~/.ssh
-          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          echo "37.235.105.178 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILMR9P7pX0HOsgVYD/W2Q2MMljxLu7RrIESQPkt8dw7b" > ~/.ssh/known_hosts
-
-      # The server key is restricted to rrsync in the web root, so the target path is relative to it.
       - name: Sync files
         run: |
-          rsync -rlcvz --delete --omit-dir-times \
+          rsync -rlcv --delete --omit-dir-times \
             --exclude=.git --exclude=.github --exclude=README.md \
-            ./ deploy-martinprihoda@37.235.105.178:
+            ./ /www/hosting/martinprihoda.cz/www/
