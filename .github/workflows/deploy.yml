@@ -2,20 +2,23 @@ name: Deploy
 
 on:
   push:
-    branches: [production]
+    branches: [master, production]
   workflow_dispatch:
 
 concurrency:
-  group: production
+  group: deploy-${{ github.ref_name }}
   cancel-in-progress: false
 
 jobs:
   deploy:
+    if: github.ref_name == 'master' || github.ref_name == 'production'
     # Runs on the VPS itself: its firewall only allows SSH from CZ/SK, so GitHub-hosted runners can't push there.
     runs-on: [self-hosted, martinprihoda]
     environment:
-      name: production
-      url: https://martinprihoda.cz
+      name: ${{ github.ref_name == 'production' && 'production' || 'dev' }}
+      url: ${{ github.ref_name == 'production' && 'https://martinprihoda.cz' || 'https://dev.martinprihoda.cz' }}
+    env:
+      TARGET: /www/hosting/martinprihoda.cz/${{ github.ref_name == 'production' && 'www' || 'dev' }}/
     steps:
       - uses: actions/checkout@v5
 
@@ -23,4 +26,4 @@ jobs:
         run: |
           rsync -rlcv --delete --omit-dir-times \
             --exclude=.git --exclude=.github --exclude=README.md \
-            ./ /www/hosting/martinprihoda.cz/www/
+            ./ "$TARGET"
