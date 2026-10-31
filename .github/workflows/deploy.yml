@@ -27,3 +27,7 @@ jobs:
           rsync -rlcv --delete --omit-dir-times \
             --exclude=.git --exclude=.github --exclude=README.md \
             ./ "$TARGET"
+
+      # rsync keeps the mode of files it overwrites, so drop any world-writable bits left by earlier files.
+      - name: Fix permissions
+        run: find "$TARGET" -user "$(id -un)" -perm /o+w -exec chmod o-w {} +
