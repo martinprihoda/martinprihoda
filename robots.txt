@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://martinprihoda.cz/sitemap.xml
